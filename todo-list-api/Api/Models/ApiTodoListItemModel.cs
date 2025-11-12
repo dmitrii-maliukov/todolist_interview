@@ -1,6 +1,6 @@
-namespace TodoList.Core.Models;
+namespace TodoList.Api.Models;
 
-public class TodoListItemModel
+public class ApiTodoListItemModel
 {
     public Guid Id { get; set; }
     public required string Note { get; set; }
