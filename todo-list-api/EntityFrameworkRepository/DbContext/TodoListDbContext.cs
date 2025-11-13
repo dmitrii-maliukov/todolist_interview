@@ -16,7 +16,7 @@ public class TodoListDbContext : DbContext
         modelBuilder.Entity<TodoListEntity>(entity =>
         {
             entity.HasKey(x => x.Id);
-            entity.Property(x => x.Title).IsRequired().HasMaxLength(50);
+            entity.Property(x => x.Title).HasMaxLength(50);
             entity.Property(x => x.Description).HasMaxLength(100);
             entity.Property(x => x.CreatedAt).IsRequired();
 

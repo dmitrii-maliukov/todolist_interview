@@ -1,19 +1,39 @@
 ﻿using System.Collections.ObjectModel;
+using Microsoft.EntityFrameworkCore;
 using TodoList.Core.Abstractions;
+using TodoList.Core.Exceptions;
 using TodoList.Core.Models;
+using TodoList.EntityFrameworkRepository.Converters;
 
 namespace TodoList.EntityFrameworkRepository;
 
 public class EntityFrameworkRepository : IRepository
 {
-    public Task<ReadOnlyCollection<TodoListModel>> GetAllTodoListsAsync(CancellationToken ct)
+    private readonly TodoListDbContext _dbContext;
+
+    public EntityFrameworkRepository(TodoListDbContext dbContext)
     {
-        throw new NotImplementedException();
+        _dbContext = dbContext;
     }
 
-    public Task<TodoListModel> GetTodoListAsync(Guid id, CancellationToken ct)
+    // TODO: make pagination if time allowed
+    public async Task<ReadOnlyCollection<TodoListModel>> GetAllTodoListsAsync(CancellationToken ct)
     {
-        throw new NotImplementedException();
+        return (await _dbContext.TodoLists
+            .Select(x => x.ConvertToCoreListModel())
+            .ToListAsync(ct))
+            .AsReadOnly();
+    }
+
+    public async Task<TodoListModel> GetTodoListAsync(Guid id, CancellationToken ct)
+    {
+        var fetched = await _dbContext.TodoLists
+            .SingleOrDefaultAsync(x => x.Id == id, ct);
+
+        if (fetched == null)
+            throw new DataNotFoundException($"Todo List {id} cannot be found");
+
+        return fetched.ConvertToCoreListModel();
     }
 
     public Task<TodoListModel> InsertTodoListAsync(CreateTodoListInfo todoListInfo, CancellationToken ct)

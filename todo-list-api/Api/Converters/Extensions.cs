@@ -10,8 +10,11 @@ internal static class Extensions
         new()
         {
             Id = todoListItem.Id,
-            Note = todoListItem.Note,
-            IsCompleted = todoListItem.IsCompleted
+            ListId = todoListItem.ListId,
+            Title = todoListItem.Title,
+            Description = todoListItem.Description,
+            IsCompleted = todoListItem.IsCompleted,
+            CreatedAt = todoListItem.CreatedAt
         };
 
     public static ApiTodoListModel ToApiTodoListModel(
@@ -20,15 +23,28 @@ internal static class Extensions
         {
             Id = todoList.Id,
             Title = todoList.Title,
+            Description = todoList.Description,
+            CreatedAt = todoList.CreatedAt,
             TodoItems = todoList.TodoItems.Select(x => x.ToApiTodoListItemModel()),
         };
 
     public static CreateTodoListInfo ToCoreTodoListModel(
-            this CreateTodoListRequest newTodoList) =>
-        new()
+        this CreateTodoListRequest todoListRequest)
+    {
+        var list = todoListRequest.TodoList!;
+        var listItems = todoListRequest.TodoItems!
+            .Select(x => new CreateTodoListItemInfo()
+            {
+                Title = x.Title!,
+                Description = x.Description,
+                IsCompleted = x.IsCompleted
+            });
+
+        return new()
         {
-            Title = newTodoList.Title,
-            TodoItems = newTodoList.TodoItems?
-                .Select(x => new CreateTodoListItemInfo() { Note = x, IsCompleted = false }) ?? []
+            Title = list.Title!,
+            Description = list.Description,
+            TodoItems = listItems
         };
+    }
 }

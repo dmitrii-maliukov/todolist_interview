@@ -19,7 +19,7 @@ builder.Services.AddHealthChecks();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateTodoListRequestValidator>();
 
-builder.Services.AddSingleton<IRepository, EntityFrameworkRepository>();
+builder.Services.AddTransient<IRepository, EntityFrameworkRepository>();
 builder.Services.AddTransient<ITodoListService, TodoListService>();
 
 // adding EF Core

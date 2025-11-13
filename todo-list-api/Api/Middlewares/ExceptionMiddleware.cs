@@ -1,6 +1,7 @@
 using System.Net;
 using System.Text.Json;
 using FluentValidation;
+using TodoList.Core.Exceptions;
 
 namespace TodoList.Api.Middlewares;
 
@@ -46,12 +47,18 @@ public class ExceptionsMiddleware
 
     private int MapExceptionTypeToHttpCode(Exception e)
     {
+        _logger.LogError(e, "Exception occured:");
+
         switch (e)
         {
-            case ValidationException: return (int)HttpStatusCode.BadRequest;
-            case UnauthorizedAccessException: return (int)HttpStatusCode.Unauthorized;
+            case UnauthorizedAccessException:
+                return (int)HttpStatusCode.Unauthorized;
+
+            case ValidationException:
+            case DataNotFoundException:
+                return (int)HttpStatusCode.BadRequest;
+
             default:
-                _logger.LogError(e, "Exception occured:");
                 return (int)HttpStatusCode.InternalServerError;
         }
 
