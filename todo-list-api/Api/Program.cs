@@ -1,5 +1,10 @@
+using TodoList.Api.Validations;
 using TodoList.Core.Abstractions;
 using TodoList.Core.Services;
+using TodoList.EntityFrameworkRepository;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using TodoList.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,10 +15,16 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddHealthChecks();
 
+// validation
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateTodoListRequestValidator>();
+
+builder.Services.AddSingleton<IRepository, EntityFrameworkRepository>();
 builder.Services.AddTransient<ITodoListService, TodoListService>();
 
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionsMiddleware>();
 app.UseHttpLogging();
 app.UseHealthChecks("/health");
 

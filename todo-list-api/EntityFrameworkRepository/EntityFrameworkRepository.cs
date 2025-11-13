@@ -2,7 +2,7 @@
 using TodoList.Core.Abstractions;
 using TodoList.Core.Models;
 
-namespace EntityFrameworkRepository;
+namespace TodoList.EntityFrameworkRepository;
 
 public class EntityFrameworkRepository : IRepository
 {

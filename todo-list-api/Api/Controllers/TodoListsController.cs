@@ -30,12 +30,12 @@ public class TodoListsController : ControllerBase
 
     [HttpPost]
     [Produces(typeof(ApiTodoListModel))]
-    public async Task<IActionResult> CreateTodoList(
+    public async Task<IActionResult> CreateTodoListAsync(
         CreateTodoListRequest newTodoList,
         CancellationToken ct)
     {
         var added = await _todoListService
             .CreateTodoListAsync(newTodoList.ToCoreTodoListModel(), ct);
-        return Created("api/todo-lists", added);
+        return Created("api/todo-lists", added.ToApiTodoListModel());
     }
 }
