@@ -20,6 +20,7 @@ public class EntityFrameworkRepository : IRepository
     public async Task<ReadOnlyCollection<TodoListModel>> GetAllTodoListsAsync(CancellationToken ct)
     {
         return (await _dbContext.TodoLists
+            .Include(x => x.Items)
             .Select(x => x.ConvertToCoreListModel())
             .ToListAsync(ct))
             .AsReadOnly();
