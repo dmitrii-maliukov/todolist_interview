@@ -1,0 +1,10 @@
+FROM mcr.microsoft.com/dotnet/sdk:9.0
+WORKDIR /app
+
+RUN dotnet tool install --global dotnet-ef --version 9.0.11
+ENV PATH="$PATH:/root/.dotnet/tools"
+
+COPY . ./
+
+RUN dotnet restore Api/Api.csproj
+ENTRYPOINT ["sh", "-c", "rm -f /sqlite_data/migrations_done && dotnet ef database update --startup-project ./Api && touch /sqlite_data/migrations_done"]

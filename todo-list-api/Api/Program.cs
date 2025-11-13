@@ -22,6 +22,9 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateTodoListRequestValida
 builder.Services.AddSingleton<IRepository, EntityFrameworkRepository>();
 builder.Services.AddTransient<ITodoListService, TodoListService>();
 
+// adding EF Core
+ServiceConfig.AddEntityFramework(builder.Services, builder.Configuration);
+
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionsMiddleware>();
