@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  todo-list-api:
+    build: todo-list-api/.
+    ports:
+      - "5051:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+    volumes:
+      - todo_list_data:/sqlite_data
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/health" ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+volumes:
+  todo_list_data:
+
