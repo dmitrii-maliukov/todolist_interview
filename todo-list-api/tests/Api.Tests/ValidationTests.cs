@@ -11,14 +11,14 @@ public class ValidationTests
     [Theory]
     [InlineData("")]
     [InlineData(null)]
-    public async Task AddTodoList_NoTitle_ShouldReturnBadRequestWithMessage(
+    public async Task CreateTodoList_NoTitle_ShouldReturnBadRequestWithMessage(
         string? theoryTitle)
     {
         // arrange 
         var todoListToCreate = new CreateTodoListRequest
         {
-            Title = theoryTitle,
-            TodoItems = ["test 1st item"]
+            TodoList = new CreateTodoListModel { Title = theoryTitle },
+            TodoItems = [new CreateTodoListItemModel { Title = "test 1st item" }]
         };
 
         var apiFactory = new TestApiFactory();
@@ -28,9 +28,8 @@ public class ValidationTests
         var response = await unitUnderTest.PostAsJsonAsync(_conrollerUrl, todoListToCreate);
 
         // assert
-        response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
-        var content = await response.Content.ReadAsStringAsync();
-        content.Should().Contain("'Title' must not be empty.");
+        var content = await AssertBadRequestAsync(response);
+        content.Should().Contain("'Todo List Title' must not be empty.");
         content.Should().NotContain("'Todo Items' must not be empty.");
     }
 
@@ -38,19 +37,19 @@ public class ValidationTests
     public static IEnumerable<object?[]> EmptyTodoItemsTestData =>
         new List<object?[]>
         {
-            new object?[] { new List<string>() },
+            new object?[] { new List<CreateTodoListItemModel>() },
             new object?[] { null }
         };
 
     [Theory]
     [MemberData(nameof(EmptyTodoItemsTestData))]
-    public async Task AddTodoList_NoTodoItems_ShouldReturnBadRequestWithMessage(
-        IEnumerable<string> todoItems)
+    public async Task CreateTodoList_NoTodoItems_ShouldReturnBadRequestWithMessage(
+        IEnumerable<CreateTodoListItemModel> todoItems)
     {
         // arrange 
         var todoListToCreate = new CreateTodoListRequest
         {
-            Title = "Test todo list",
+            TodoList = new CreateTodoListModel { Title = "Test todo list" },
             TodoItems = todoItems
         };
 
@@ -61,19 +60,18 @@ public class ValidationTests
         var response = await unitUnderTest.PostAsJsonAsync(_conrollerUrl, todoListToCreate);
 
         // assert
-        response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
-        var content = await response.Content.ReadAsStringAsync();
+        var content = await AssertBadRequestAsync(response);
         content.Should().Contain("'Todo Items' must not be empty.");
-        content.Should().NotContain("'Title' must not be empty.");
+        content.Should().NotContain("'Todo List Title' must not be empty.");
     }
 
     [Fact]
-    public async Task AddTodoList_NoTitle_NoTodoItems_ShouldReturnBadRequestWithErrorMessages()
+    public async Task CreateTodoList_NoTitle_NoTodoItems_ShouldReturnBadRequestWithErrorMessages()
     {
         // arrange 
         var todoListToCreate = new CreateTodoListRequest
         {
-            Title = null,
+            TodoList = null,
             TodoItems = null
         };
 
@@ -84,9 +82,85 @@ public class ValidationTests
         var response = await unitUnderTest.PostAsJsonAsync(_conrollerUrl, todoListToCreate);
 
         // assert
-        response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
-        var content = await response.Content.ReadAsStringAsync();
-        content.Should().Contain("'Title' must not be empty.");
+        var content = await AssertBadRequestAsync(response);
+        content.Should().Contain("'Todo List' must not be empty.");
         content.Should().Contain("'Todo Items' must not be empty.");
+    }
+
+    [Fact]
+    public async Task CreateTodoList_NoTitleInOneTodoItems_ShouldReturnBadRequestWithMessage()
+    {
+        // arrange 
+        var todoListToCreate = new CreateTodoListRequest
+        {
+            TodoList = new CreateTodoListModel { Title = "Test todo list" },
+            TodoItems = [
+                new CreateTodoListItemModel() { Title = "Item 1" },
+                new CreateTodoListItemModel() { Title = null },
+                new CreateTodoListItemModel() { Title = "Item 2" }
+            ]
+        };
+
+        var apiFactory = new TestApiFactory();
+        var unitUnderTest = apiFactory.CreateClient();
+
+        // act
+        var response = await unitUnderTest.PostAsJsonAsync(_conrollerUrl, todoListToCreate);
+
+        // assert
+        var content = await AssertBadRequestAsync(response);
+        content.Should().Contain("'Title' must not be empty.");
+    }
+
+    [Fact]
+    public async Task CreateTodoList_ListTitleCharsOverflown_ShouldReturnBadRequestWithErrorMessage()
+    {
+        // arrange 
+        var todoListToCreate = new CreateTodoListRequest
+        {
+            TodoList = new CreateTodoListModel { Title = "Very long title, definitely more than allowed in our API" },
+            TodoItems = [new CreateTodoListItemModel { Title = "test 1st item" }]
+        };
+
+        var apiFactory = new TestApiFactory();
+        var unitUnderTest = apiFactory.CreateClient();
+
+        // act
+        var response = await unitUnderTest.PostAsJsonAsync(_conrollerUrl, todoListToCreate);
+
+        // assert
+        var content = await AssertBadRequestAsync(response);
+        content.Should().Contain("The length of 'Todo List Title' must be 50 characters or fewer. You entered 56 characters.");
+    }
+
+    [Fact]
+    public async Task CreateTodoList_ListDescriptionCharsOverflown_ShouldReturnBadRequestWithErrorMessage()
+    {
+        // arrange 
+        var todoListToCreate = new CreateTodoListRequest
+        {
+            TodoList = new CreateTodoListModel
+            {
+                Title = "Good Title",
+                Description = "Very long description. There is no way that description can be so long. Like how many characters here... Too many for my taste",
+            },
+            TodoItems = [new CreateTodoListItemModel { Title = "test 1st item" }]
+        };
+
+        var apiFactory = new TestApiFactory();
+        var unitUnderTest = apiFactory.CreateClient();
+
+        // act
+        var response = await unitUnderTest.PostAsJsonAsync(_conrollerUrl, todoListToCreate);
+
+        // assert
+        var content = await AssertBadRequestAsync(response);
+        content.Should().Contain("The length of 'Todo List Description' must be 100 characters or fewer. You entered 126 characters.");
+    }
+
+    private async Task<string> AssertBadRequestAsync(HttpResponseMessage response)
+    {
+        response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
+        return await response.Content.ReadAsStringAsync();
     }
 }
