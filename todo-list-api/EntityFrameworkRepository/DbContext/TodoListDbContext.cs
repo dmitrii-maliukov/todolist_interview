@@ -16,7 +16,8 @@ public class TodoListDbContext : DbContext
         modelBuilder.Entity<TodoListEntity>(entity =>
         {
             entity.HasKey(x => x.Id);
-            entity.Property(x => x.Title).IsRequired().HasMaxLength(30);
+            entity.Property(x => x.Title).IsRequired().HasMaxLength(50);
+            entity.Property(x => x.Description).HasMaxLength(100);
             entity.Property(x => x.CreatedAt).IsRequired();
 
             entity
@@ -29,9 +30,12 @@ public class TodoListDbContext : DbContext
         modelBuilder.Entity<TodoListItemEntity>(entity =>
         {
             entity.HasKey(x => x.Id);
-            entity.Property(x => x.Note).IsRequired().HasMaxLength(30);
+            entity.Property(x => x.Title).IsRequired().HasMaxLength(50);
+            entity.Property(x => x.Description).HasMaxLength(100);
             entity.Property(x => x.IsCompleted).IsRequired().HasDefaultValue(false);
             entity.Property(x => x.CreatedAt).IsRequired();
         });
+
+        DataSeeding.SeedInitialData(modelBuilder);
     }
 }
