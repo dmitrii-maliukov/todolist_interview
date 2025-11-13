@@ -11,7 +11,7 @@ internal static class Extensions
         {
             Id = todoListItem.Id,
             Note = todoListItem.Note,
-            Done = todoListItem.Done
+            IsCompleted = todoListItem.IsCompleted
         };
 
     public static ApiTodoListModel ToApiTodoListModel(
@@ -29,6 +29,6 @@ internal static class Extensions
         {
             Title = newTodoList.Title,
             TodoItems = newTodoList.TodoItems?
-                .Select(x => new CreateTodoListItemInfo() { Note = x, Done = false }) ?? []
+                .Select(x => new CreateTodoListItemInfo() { Note = x, IsCompleted = false }) ?? []
         };
 }

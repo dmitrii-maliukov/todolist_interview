@@ -4,5 +4,5 @@ public class ApiTodoListItemModel
 {
     public Guid Id { get; set; }
     public required string Note { get; set; }
-    public bool Done { get; set; }
+    public bool IsCompleted { get; set; }
 }

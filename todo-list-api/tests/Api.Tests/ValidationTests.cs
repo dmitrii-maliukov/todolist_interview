@@ -35,11 +35,11 @@ public class ValidationTests
     }
 
 
-    public static IEnumerable<object[]> EmptyTodoItemsTestData =>
-        new List<object[]>
+    public static IEnumerable<object?[]> EmptyTodoItemsTestData =>
+        new List<object?[]>
         {
-            new object[] { new List<string>() },
-            new object[] { null }
+            new object?[] { new List<string>() },
+            new object?[] { null }
         };
 
     [Theory]
