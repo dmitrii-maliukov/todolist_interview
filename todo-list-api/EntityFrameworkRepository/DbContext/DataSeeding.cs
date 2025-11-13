@@ -12,8 +12,8 @@ public static class DataSeeding
 
     private static void AddFirstGraderShoppingList(ModelBuilder modelBuilder)
     {
-        var listId = Guid.NewGuid();
-        var createdAt = DateTime.UtcNow.AddDays(-2);
+        var listId = Guid.Parse("60f2d96b-fdc2-4ac0-a6ba-75b9d28a73e2");
+        var createdAt = new DateTime(2025, 11, 12, 10, 25, 0, DateTimeKind.Utc);
 
         modelBuilder
             .Entity<TodoListEntity>()
@@ -25,12 +25,12 @@ public static class DataSeeding
                 CreatedAt = createdAt
             });
 
-        List<(string note, string description)> shoppingListItems = [
-            ("1 Wand", ""),
-            ("1 Cauldron", "pewter, standard size 2"),
-            ("1 telescope", ""),
-            ("1 set of brass scales", ""),
-            ("Students may also bring a pet", "An Owl or a Cat or a Toad")
+        List<(string id, string note, string description)> shoppingListItems = [
+            ("6af576ec-2747-4566-9546-bc2438f4ac3c", "1 Wand", ""),
+            ("51ffb482-7312-4330-aa24-975a8114bbb8", "1 Cauldron", "pewter, standard size 2"),
+            ("fbcad090-3928-470f-bad1-babc87dc14f4", "1 telescope", ""),
+            ("9f107bb9-f666-44ff-a711-1a87cf78cfa0", "1 set of brass scales", ""),
+            ("d6401c2a-6d89-4e9e-957a-55a93ff0f1ec", "Students may also bring a pet", "An Owl or a Cat or a Toad")
         ];
         modelBuilder
             .Entity<TodoListItemEntity>()
@@ -39,8 +39,8 @@ public static class DataSeeding
 
     private static void AddBooksList(ModelBuilder modelBuilder)
     {
-        var listId = Guid.NewGuid();
-        var createdAt = DateTime.UtcNow.AddDays(-2).AddMinutes(5);
+        var listId = Guid.Parse("d8037978-4e82-489c-bc2e-a1e22e66e1cb");
+        var createdAt = new DateTime(2025, 11, 12, 10, 28, 0, DateTimeKind.Utc);
 
         modelBuilder
             .Entity<TodoListEntity>()
@@ -51,15 +51,15 @@ public static class DataSeeding
                 CreatedAt = createdAt
             });
 
-        List<(string note, string description)> booksListItems = [
-            ("The Standard Book of Spells", "Grade 1 by Miranda Goshawk"),
-            ("A History of Magic", "by Bathilda Bagshot"),
-            ("Magical Theory", "by Adalbert Waffling"),
-            ("A Beginner's Guide to Transfiguration", "by Emeric Switch"),
-            ("One Thousand Magical Herbs and Fungi", "by Phyllida Spore"),
-            ("Magical Drafts and Potions", "by Arsenius Jigger"),
-            ("Fantastic Beasts and Where to Find Them", "by Newt Scamander"),
-            ("The Dark Forces: A Guide to Self-Protection", "by Quentin Trimble")
+        List<(string id, string note, string description)> booksListItems = [
+            ("e910a686-58c1-4986-9e12-f860d0774e96", "The Standard Book of Spells", "Grade 1 by Miranda Goshawk"),
+            ("d7ede17d-d6bc-4bfa-ad6e-e9ecd7620287", "A History of Magic", "by Bathilda Bagshot"),
+            ("a7a73eb5-f57d-4f44-bc3b-7591e402f4b6", "Magical Theory", "by Adalbert Waffling"),
+            ("9a8168f7-814f-4a09-9082-e820748e93b3", "A Beginner's Guide to Transfiguration", "by Emeric Switch"),
+            ("d7085cd7-a36f-4a76-b778-d9befe0bf332", "One Thousand Magical Herbs and Fungi", "by Phyllida Spore"),
+            ("ae11e864-495f-4355-9356-a51873c4df29", "Magical Drafts and Potions", "by Arsenius Jigger"),
+            ("aa4773e5-72b4-409a-a1e8-f63ff11821b0", "Fantastic Beasts and Where to Find Them", "by Newt Scamander"),
+            ("05d7dd78-25b5-4ead-9da7-b65bde9e247e", "The Dark Forces: A Guide to Self-Protection", "by Quentin Trimble")
         ];
         modelBuilder
             .Entity<TodoListItemEntity>()
@@ -70,12 +70,12 @@ public static class DataSeeding
     private static IEnumerable<TodoListItemEntity> BuildTodoItems(
         Guid listId,
         DateTime createdAt,
-        IEnumerable<(string note, string description)> todoNotes)
+        IEnumerable<(string id, string note, string description)> todoNotes)
     {
         return todoNotes
             .Select(todoItem => new TodoListItemEntity()
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse(todoItem.id),
                 TodoListId = listId,
                 Title = todoItem.note,
                 Description = todoItem.description,

@@ -11,7 +11,7 @@ using TodoList.EntityFrameworkRepository;
 namespace TodoList.EntityFrameworkRepository.Migrations
 {
     [DbContext(typeof(TodoListDbContext))]
-    [Migration("20251113142703_SeedInitialData")]
+    [Migration("20251113180040_SeedInitialData")]
     partial class SeedInitialData
     {
         /// <inheritdoc />
@@ -45,15 +45,15 @@ namespace TodoList.EntityFrameworkRepository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("caf9f07b-75b5-4425-8b39-a3880839fa95"),
-                            CreatedAt = new DateTime(2025, 11, 11, 14, 27, 2, 441, DateTimeKind.Utc).AddTicks(2372),
+                            Id = new Guid("60f2d96b-fdc2-4ac0-a6ba-75b9d28a73e2"),
+                            CreatedAt = new DateTime(2025, 11, 12, 10, 25, 0, 0, DateTimeKind.Utc),
                             Description = "Got it from Hagrid",
                             Title = "Hogwart's first grader shopping list"
                         },
                         new
                         {
-                            Id = new Guid("97108c8d-542c-41df-9d53-90e26f202ee2"),
-                            CreatedAt = new DateTime(2025, 11, 11, 14, 32, 2, 444, DateTimeKind.Utc).AddTicks(7159),
+                            Id = new Guid("d8037978-4e82-489c-bc2e-a1e22e66e1cb"),
+                            CreatedAt = new DateTime(2025, 11, 12, 10, 28, 0, 0, DateTimeKind.Utc),
                             Title = "First grader books"
                         });
                 });
@@ -93,120 +93,120 @@ namespace TodoList.EntityFrameworkRepository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4527444b-24ba-4513-a1c9-0840d0a1a104"),
-                            CreatedAt = new DateTime(2025, 11, 11, 14, 27, 2, 441, DateTimeKind.Utc).AddTicks(2372),
+                            Id = new Guid("6af576ec-2747-4566-9546-bc2438f4ac3c"),
+                            CreatedAt = new DateTime(2025, 11, 12, 10, 25, 0, 0, DateTimeKind.Utc),
                             Description = "",
                             IsCompleted = false,
                             Title = "1 Wand",
-                            TodoListId = new Guid("caf9f07b-75b5-4425-8b39-a3880839fa95")
+                            TodoListId = new Guid("60f2d96b-fdc2-4ac0-a6ba-75b9d28a73e2")
                         },
                         new
                         {
-                            Id = new Guid("15e7015e-c906-4589-ac9d-1aed41609de9"),
-                            CreatedAt = new DateTime(2025, 11, 11, 14, 27, 2, 441, DateTimeKind.Utc).AddTicks(2372),
+                            Id = new Guid("51ffb482-7312-4330-aa24-975a8114bbb8"),
+                            CreatedAt = new DateTime(2025, 11, 12, 10, 25, 0, 0, DateTimeKind.Utc),
                             Description = "pewter, standard size 2",
                             IsCompleted = false,
                             Title = "1 Cauldron",
-                            TodoListId = new Guid("caf9f07b-75b5-4425-8b39-a3880839fa95")
+                            TodoListId = new Guid("60f2d96b-fdc2-4ac0-a6ba-75b9d28a73e2")
                         },
                         new
                         {
-                            Id = new Guid("c97381a8-1611-42fb-980f-30589ef61fb4"),
-                            CreatedAt = new DateTime(2025, 11, 11, 14, 27, 2, 441, DateTimeKind.Utc).AddTicks(2372),
+                            Id = new Guid("fbcad090-3928-470f-bad1-babc87dc14f4"),
+                            CreatedAt = new DateTime(2025, 11, 12, 10, 25, 0, 0, DateTimeKind.Utc),
                             Description = "",
                             IsCompleted = false,
                             Title = "1 telescope",
-                            TodoListId = new Guid("caf9f07b-75b5-4425-8b39-a3880839fa95")
+                            TodoListId = new Guid("60f2d96b-fdc2-4ac0-a6ba-75b9d28a73e2")
                         },
                         new
                         {
-                            Id = new Guid("4ef78f57-a4c5-49e9-8bba-e863913d9cb5"),
-                            CreatedAt = new DateTime(2025, 11, 11, 14, 27, 2, 441, DateTimeKind.Utc).AddTicks(2372),
+                            Id = new Guid("9f107bb9-f666-44ff-a711-1a87cf78cfa0"),
+                            CreatedAt = new DateTime(2025, 11, 12, 10, 25, 0, 0, DateTimeKind.Utc),
                             Description = "",
                             IsCompleted = false,
                             Title = "1 set of brass scales",
-                            TodoListId = new Guid("caf9f07b-75b5-4425-8b39-a3880839fa95")
+                            TodoListId = new Guid("60f2d96b-fdc2-4ac0-a6ba-75b9d28a73e2")
                         },
                         new
                         {
-                            Id = new Guid("bfc93b39-37a4-4bcd-b5ad-52d026456f19"),
-                            CreatedAt = new DateTime(2025, 11, 11, 14, 27, 2, 441, DateTimeKind.Utc).AddTicks(2372),
+                            Id = new Guid("d6401c2a-6d89-4e9e-957a-55a93ff0f1ec"),
+                            CreatedAt = new DateTime(2025, 11, 12, 10, 25, 0, 0, DateTimeKind.Utc),
                             Description = "An Owl or a Cat or a Toad",
                             IsCompleted = false,
                             Title = "Students may also bring a pet",
-                            TodoListId = new Guid("caf9f07b-75b5-4425-8b39-a3880839fa95")
+                            TodoListId = new Guid("60f2d96b-fdc2-4ac0-a6ba-75b9d28a73e2")
                         },
                         new
                         {
-                            Id = new Guid("c8d87d00-47b3-46bc-a22a-1730d701dac5"),
-                            CreatedAt = new DateTime(2025, 11, 11, 14, 32, 2, 444, DateTimeKind.Utc).AddTicks(7159),
+                            Id = new Guid("e910a686-58c1-4986-9e12-f860d0774e96"),
+                            CreatedAt = new DateTime(2025, 11, 12, 10, 28, 0, 0, DateTimeKind.Utc),
                             Description = "Grade 1 by Miranda Goshawk",
                             IsCompleted = false,
                             Title = "The Standard Book of Spells",
-                            TodoListId = new Guid("97108c8d-542c-41df-9d53-90e26f202ee2")
+                            TodoListId = new Guid("d8037978-4e82-489c-bc2e-a1e22e66e1cb")
                         },
                         new
                         {
-                            Id = new Guid("ad826e1a-e00a-4b11-a6e0-5ab4123d3ad0"),
-                            CreatedAt = new DateTime(2025, 11, 11, 14, 32, 2, 444, DateTimeKind.Utc).AddTicks(7159),
+                            Id = new Guid("d7ede17d-d6bc-4bfa-ad6e-e9ecd7620287"),
+                            CreatedAt = new DateTime(2025, 11, 12, 10, 28, 0, 0, DateTimeKind.Utc),
                             Description = "by Bathilda Bagshot",
                             IsCompleted = false,
                             Title = "A History of Magic",
-                            TodoListId = new Guid("97108c8d-542c-41df-9d53-90e26f202ee2")
+                            TodoListId = new Guid("d8037978-4e82-489c-bc2e-a1e22e66e1cb")
                         },
                         new
                         {
-                            Id = new Guid("d27f2c86-c97b-4419-be59-c63bdeb3bff3"),
-                            CreatedAt = new DateTime(2025, 11, 11, 14, 32, 2, 444, DateTimeKind.Utc).AddTicks(7159),
+                            Id = new Guid("a7a73eb5-f57d-4f44-bc3b-7591e402f4b6"),
+                            CreatedAt = new DateTime(2025, 11, 12, 10, 28, 0, 0, DateTimeKind.Utc),
                             Description = "by Adalbert Waffling",
                             IsCompleted = false,
                             Title = "Magical Theory",
-                            TodoListId = new Guid("97108c8d-542c-41df-9d53-90e26f202ee2")
+                            TodoListId = new Guid("d8037978-4e82-489c-bc2e-a1e22e66e1cb")
                         },
                         new
                         {
-                            Id = new Guid("abeaa704-a0de-4b62-855e-dc1e59d88713"),
-                            CreatedAt = new DateTime(2025, 11, 11, 14, 32, 2, 444, DateTimeKind.Utc).AddTicks(7159),
+                            Id = new Guid("9a8168f7-814f-4a09-9082-e820748e93b3"),
+                            CreatedAt = new DateTime(2025, 11, 12, 10, 28, 0, 0, DateTimeKind.Utc),
                             Description = "by Emeric Switch",
                             IsCompleted = false,
                             Title = "A Beginner's Guide to Transfiguration",
-                            TodoListId = new Guid("97108c8d-542c-41df-9d53-90e26f202ee2")
+                            TodoListId = new Guid("d8037978-4e82-489c-bc2e-a1e22e66e1cb")
                         },
                         new
                         {
-                            Id = new Guid("e5b38cba-4b9f-4bbc-8709-dd45eee7cd2b"),
-                            CreatedAt = new DateTime(2025, 11, 11, 14, 32, 2, 444, DateTimeKind.Utc).AddTicks(7159),
+                            Id = new Guid("d7085cd7-a36f-4a76-b778-d9befe0bf332"),
+                            CreatedAt = new DateTime(2025, 11, 12, 10, 28, 0, 0, DateTimeKind.Utc),
                             Description = "by Phyllida Spore",
                             IsCompleted = false,
                             Title = "One Thousand Magical Herbs and Fungi",
-                            TodoListId = new Guid("97108c8d-542c-41df-9d53-90e26f202ee2")
+                            TodoListId = new Guid("d8037978-4e82-489c-bc2e-a1e22e66e1cb")
                         },
                         new
                         {
-                            Id = new Guid("5935aece-d1ee-454d-8e8e-7cc9654c42cd"),
-                            CreatedAt = new DateTime(2025, 11, 11, 14, 32, 2, 444, DateTimeKind.Utc).AddTicks(7159),
+                            Id = new Guid("ae11e864-495f-4355-9356-a51873c4df29"),
+                            CreatedAt = new DateTime(2025, 11, 12, 10, 28, 0, 0, DateTimeKind.Utc),
                             Description = "by Arsenius Jigger",
                             IsCompleted = false,
                             Title = "Magical Drafts and Potions",
-                            TodoListId = new Guid("97108c8d-542c-41df-9d53-90e26f202ee2")
+                            TodoListId = new Guid("d8037978-4e82-489c-bc2e-a1e22e66e1cb")
                         },
                         new
                         {
-                            Id = new Guid("f9b1b7cf-798a-42e8-ad0b-9099214cc1fe"),
-                            CreatedAt = new DateTime(2025, 11, 11, 14, 32, 2, 444, DateTimeKind.Utc).AddTicks(7159),
+                            Id = new Guid("aa4773e5-72b4-409a-a1e8-f63ff11821b0"),
+                            CreatedAt = new DateTime(2025, 11, 12, 10, 28, 0, 0, DateTimeKind.Utc),
                             Description = "by Newt Scamander",
                             IsCompleted = false,
                             Title = "Fantastic Beasts and Where to Find Them",
-                            TodoListId = new Guid("97108c8d-542c-41df-9d53-90e26f202ee2")
+                            TodoListId = new Guid("d8037978-4e82-489c-bc2e-a1e22e66e1cb")
                         },
                         new
                         {
-                            Id = new Guid("adf888fe-047c-4723-87eb-8a71edf42b07"),
-                            CreatedAt = new DateTime(2025, 11, 11, 14, 32, 2, 444, DateTimeKind.Utc).AddTicks(7159),
+                            Id = new Guid("05d7dd78-25b5-4ead-9da7-b65bde9e247e"),
+                            CreatedAt = new DateTime(2025, 11, 12, 10, 28, 0, 0, DateTimeKind.Utc),
                             Description = "by Quentin Trimble",
                             IsCompleted = false,
                             Title = "The Dark Forces: A Guide to Self-Protection",
-                            TodoListId = new Guid("97108c8d-542c-41df-9d53-90e26f202ee2")
+                            TodoListId = new Guid("d8037978-4e82-489c-bc2e-a1e22e66e1cb")
                         });
                 });
 
