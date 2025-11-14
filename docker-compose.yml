@@ -6,7 +6,8 @@ services:
     ports:
       - "5051:8080"
     environment:
-      ASPNETCORE_ENVIRONMENT: "Development"
+      - "ASPNETCORE_ENVIRONMENT=Development"
+      - "CONNECTIONSTRINGS__DEFAULT=Data Source=/sqlite_data/todolist.db"
     volumes:
       - todo_list_data:/sqlite_data
     healthcheck:
