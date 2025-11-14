@@ -47,4 +47,16 @@ internal static class Extensions
             TodoItems = listItems
         };
     }
+
+    public static GetApiTodoListsModel ToTodoListsPaginationResult(
+            this TodoListsPaginationResult paginationResult) =>
+        new GetApiTodoListsModel
+        {
+            TotalCount = paginationResult.TotalCount,
+            CurrentPageNumber = paginationResult.CurrentPage,
+            Items = paginationResult.TodoLists
+                .Select(x => x.ToApiTodoListModel())
+                .ToList().AsReadOnly()
+        };
+
 }

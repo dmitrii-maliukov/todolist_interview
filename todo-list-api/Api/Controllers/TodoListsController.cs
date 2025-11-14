@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using TodoList.Api.Converters;
 using TodoList.Api.Models;
 using TodoList.Core.Abstractions;
+using TodoList.Core.Models;
 
 namespace TodoList.Api.Controllers;
 
@@ -18,19 +19,20 @@ public class TodoListsController : ControllerBase
 
     [HttpGet]
     [Produces(typeof(GetApiTodoListsModel))]
-    public async Task<ActionResult<GetApiTodoListsModel>> GetAllTodoListsAsync(
+    public async Task<ActionResult<GetApiTodoListsModel>> GetAsync(
+        int? PageSize,
+        int? PageNumber,
         CancellationToken ct)
     {
-        var todoLists = await _todoListService.GetAllTodoListsAsync(ct);
-        return Ok(new GetApiTodoListsModel
-        {
-            Items = todoLists.Select(x => x.ToApiTodoListModel())
-        });
+        var result = await _todoListService
+            .GetTodoListsAsync(new GetTodoListsFilter(PageSize, PageNumber), ct);
+
+        return Ok(result.ToTodoListsPaginationResult());
     }
 
     [HttpPost]
     [Produces(typeof(ApiTodoListModel))]
-    public async Task<IActionResult> CreateTodoListAsync(
+    public async Task<IActionResult> CreateAsync(
         CreateTodoListRequest newTodoList,
         CancellationToken ct)
     {

@@ -19,7 +19,8 @@ public class TodoListService : ITodoListService
             CancellationToken ct) =>
         _repository.InsertTodoListAsync(todoListInfo, ct);
 
-    public Task<ReadOnlyCollection<TodoListModel>> GetAllTodoListsAsync(
+    public Task<TodoListsPaginationResult> GetTodoListsAsync(
+            GetTodoListsFilter filter,
             CancellationToken ct) =>
-        _repository.GetAllTodoListsAsync(ct);
+        _repository.GetTodoListsAsync(filter, ct);
 }

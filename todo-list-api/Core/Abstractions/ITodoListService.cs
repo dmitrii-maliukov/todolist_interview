@@ -5,7 +5,11 @@ namespace TodoList.Core.Abstractions;
 
 public interface ITodoListService
 {
-    Task<TodoListModel> CreateTodoListAsync(CreateTodoListInfo todoListInfo, CancellationToken ct);
+    Task<TodoListModel> CreateTodoListAsync(
+        CreateTodoListInfo todoListInfo,
+        CancellationToken ct);
 
-    Task<ReadOnlyCollection<TodoListModel>> GetAllTodoListsAsync(CancellationToken ct);
+    Task<TodoListsPaginationResult> GetTodoListsAsync(
+        GetTodoListsFilter filter,
+        CancellationToken ct);
 }

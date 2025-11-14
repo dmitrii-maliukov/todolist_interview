@@ -16,16 +16,25 @@ public class EntityFrameworkRepository : IRepository
         _dbContext = dbContext;
     }
 
-    // TODO: make pagination if time allowed
-    public async Task<ReadOnlyCollection<TodoListModel>> GetAllTodoListsAsync(CancellationToken ct)
+    /// <inheritdoc />
+    public async Task<TodoListsPaginationResult> GetTodoListsAsync(
+        GetTodoListsFilter filter,
+        CancellationToken ct)
     {
-        return (await _dbContext.TodoLists
+        var totalCount = await _dbContext.TodoLists.CountAsync();
+        var fetchedResults = await _dbContext
+            .TodoLists
+            .OrderBy(p => p.Id)
+            .Skip((filter.CurrentPage - 1) * filter.PageSize)
+            .Take(filter.PageSize)
             .Include(x => x.Items)
             .Select(x => x.ConvertToCoreListModel())
-            .ToListAsync(ct))
-            .AsReadOnly();
+            .ToListAsync(ct);
+
+        return new(totalCount, filter.CurrentPage, fetchedResults.AsReadOnly());
     }
 
+    /// <inheritdoc />
     public async Task<TodoListModel> GetTodoListAsync(Guid id, CancellationToken ct)
     {
         var fetched = await _dbContext.TodoLists
@@ -37,6 +46,7 @@ public class EntityFrameworkRepository : IRepository
         return fetched.ConvertToCoreListModel();
     }
 
+    /// <inheritdoc />
     public async Task<TodoListModel> InsertTodoListAsync(
         CreateTodoListInfo todoListInfo,
         CancellationToken ct)
