@@ -8,8 +8,7 @@ export default defineConfig({
         port: 3000,
         proxy: {
             '/api/todo-lists': {
-                // target: 'http://todo-list-api:8080',
-                target: 'http://localhost:5085',
+                target: 'http://todo-list-api:8080',
                 changeOrigin: true
             },
         },

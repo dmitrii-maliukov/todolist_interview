@@ -16,11 +16,11 @@ services:
       timeout: 5s
       retries: 3
       start_period: 5s
-    depends_on: 
+    depends_on:
       - db-migration
- 
+
   db-migration:
-    build: 
+    build:
       context: todo-list-api/.
       dockerfile: Dockerfile.migrate
     environment:
@@ -28,6 +28,12 @@ services:
     volumes:
       - todo_list_data:/sqlite_data
 
+  react-frontend:
+    build: todo-list-web-react/.
+    ports:
+      - "3000:3000"
+    depends_on:
+      - todo-list-api
+
 volumes:
   todo_list_data:
-
