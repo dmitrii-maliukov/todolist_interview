@@ -7,7 +7,7 @@ using TodoList.EntityFrameworkRepository;
 
 #nullable disable
 
-namespace TodoList.EntityFrameworkRepository.Migrations
+namespace EntityFrameworkRepository.Migrations
 {
     [DbContext(typeof(TodoListDbContext))]
     partial class TodoListDbContextModelSnapshot : ModelSnapshot
@@ -120,7 +120,7 @@ namespace TodoList.EntityFrameworkRepository.Migrations
                             Id = new Guid("9f107bb9-f666-44ff-a711-1a87cf78cfa0"),
                             CreatedAt = new DateTime(2025, 11, 12, 10, 25, 0, 0, DateTimeKind.Utc),
                             Description = "",
-                            IsCompleted = false,
+                            IsCompleted = true,
                             Title = "1 set of brass scales",
                             TodoListId = new Guid("60f2d96b-fdc2-4ac0-a6ba-75b9d28a73e2")
                         },
@@ -138,7 +138,7 @@ namespace TodoList.EntityFrameworkRepository.Migrations
                             Id = new Guid("e910a686-58c1-4986-9e12-f860d0774e96"),
                             CreatedAt = new DateTime(2025, 11, 12, 10, 28, 0, 0, DateTimeKind.Utc),
                             Description = "Grade 1 by Miranda Goshawk",
-                            IsCompleted = false,
+                            IsCompleted = true,
                             Title = "The Standard Book of Spells",
                             TodoListId = new Guid("d8037978-4e82-489c-bc2e-a1e22e66e1cb")
                         },
@@ -174,7 +174,7 @@ namespace TodoList.EntityFrameworkRepository.Migrations
                             Id = new Guid("d7085cd7-a36f-4a76-b778-d9befe0bf332"),
                             CreatedAt = new DateTime(2025, 11, 12, 10, 28, 0, 0, DateTimeKind.Utc),
                             Description = "by Phyllida Spore",
-                            IsCompleted = false,
+                            IsCompleted = true,
                             Title = "One Thousand Magical Herbs and Fungi",
                             TodoListId = new Guid("d8037978-4e82-489c-bc2e-a1e22e66e1cb")
                         },
@@ -183,7 +183,7 @@ namespace TodoList.EntityFrameworkRepository.Migrations
                             Id = new Guid("ae11e864-495f-4355-9356-a51873c4df29"),
                             CreatedAt = new DateTime(2025, 11, 12, 10, 28, 0, 0, DateTimeKind.Utc),
                             Description = "by Arsenius Jigger",
-                            IsCompleted = false,
+                            IsCompleted = true,
                             Title = "Magical Drafts and Potions",
                             TodoListId = new Guid("d8037978-4e82-489c-bc2e-a1e22e66e1cb")
                         },
