@@ -1,7 +1,7 @@
 using TodoList.Api.Validations;
 using TodoList.Core.Abstractions;
 using TodoList.Core.Services;
-using TodoList.EntityFrameworkRepository;
+using TodoList.MemoryCacheRepository;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using TodoList.Api.Middlewares;
@@ -9,6 +9,7 @@ using TodoList.Api.Middlewares;
 var builder = WebApplication.CreateBuilder(args);
 
 // standard .net services
+builder.Services.AddMemoryCache();
 builder.Services.AddLogging();
 builder.Services.AddHttpLogging();
 builder.Services.AddControllers();
@@ -19,11 +20,10 @@ builder.Services.AddHealthChecks();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateTodoListRequestValidator>();
 
-builder.Services.AddTransient<IRepository, EntityFrameworkRepository>();
 builder.Services.AddTransient<ITodoListService, TodoListService>();
 
 // adding EF Core
-ServiceConfig.AddEntityFramework(builder.Services, builder.Configuration);
+ServiceConfig.AddCachedEntityFramework(builder.Services, builder.Configuration);
 
 var app = builder.Build();
 
