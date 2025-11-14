@@ -20,12 +20,12 @@ public class TodoListsController : ControllerBase
     [HttpGet]
     [Produces(typeof(GetApiTodoListsModel))]
     public async Task<ActionResult<GetApiTodoListsModel>> GetAsync(
-        int? PageSize,
-        int? PageNumber,
+        int? pageSize,
+        int? pageNumber,
         CancellationToken ct)
     {
         var result = await _todoListService
-            .GetTodoListsAsync(new GetTodoListsFilter(PageSize, PageNumber), ct);
+            .GetTodoListsAsync(new GetTodoListsFilter(pageSize, pageNumber), ct);
 
         return Ok(result.ToTodoListsPaginationResult());
     }
@@ -43,10 +43,10 @@ public class TodoListsController : ControllerBase
 
     [HttpDelete]
     public async Task<IActionResult> DeleteAsync(
-        Guid idToDelete,
+        Guid id,
         CancellationToken ct)
     {
-        await _todoListService.DeleteAsync(idToDelete, ct);
+        await _todoListService.DeleteAsync(id, ct);
         return Ok();
     }
 
