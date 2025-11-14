@@ -25,11 +25,26 @@ const AddTodoList = ({ onSuccess, onClose }) => {
             alert("List title is required!");
             return;
         }
-        const filteredItems = items.filter((it) => it.title.trim() !== "");
-        const payload = { title, description, todoItems: filteredItems };
+
+        const payloadItems = items
+            .filter((it) => it.title.trim() !== "")
+            .map((it) => ({
+                title: it.title,
+                description: it.description || undefined
+            }));
+
+        const payload = {
+            todoList: {
+                title,
+                description: description || undefined
+            },
+            todoItems: payloadItems
+        };
+
         try {
             setSubmitting(true);
             await addTodoList(payload);
+
             setTitle("");
             setDescription("");
             setItems([{ title: "", description: "", isCompleted: false }]);

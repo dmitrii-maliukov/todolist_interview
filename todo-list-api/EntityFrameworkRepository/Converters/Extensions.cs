@@ -29,4 +29,37 @@ internal static class Extensions
             IsCompleted = listItemEntity.IsCompleted,
             CreatedAt = listItemEntity.CreatedAt
         };
+
+    public static TodoListEntity ConvertToEntityModel(
+        this CreateTodoListInfo todoListInfo)
+    {
+        var listId = Guid.NewGuid();
+        var createdAt = DateTime.UtcNow;
+
+        return new()
+        {
+            Id = listId,
+            Title = todoListInfo.Title,
+            Description = todoListInfo.Description,
+            CreatedAt = createdAt,
+
+            Items = todoListInfo.TodoItems
+                .Select(x => x.ConvertToEntityModel(listId, createdAt))
+                .ToList()
+        };
+    }
+
+    public static TodoListItemEntity ConvertToEntityModel(
+            this CreateTodoListItemInfo todoListInfo,
+            Guid listId,
+            DateTime createdAt) =>
+        new()
+        {
+            Id = Guid.NewGuid(),
+            TodoListId = listId,
+            Title = todoListInfo.Title,
+            Description = todoListInfo.Description,
+            IsCompleted = todoListInfo.IsCompleted,
+            CreatedAt = createdAt
+        };
 }

@@ -37,8 +37,14 @@ public class EntityFrameworkRepository : IRepository
         return fetched.ConvertToCoreListModel();
     }
 
-    public Task<TodoListModel> InsertTodoListAsync(CreateTodoListInfo todoListInfo, CancellationToken ct)
+    public async Task<TodoListModel> InsertTodoListAsync(
+        CreateTodoListInfo todoListInfo,
+        CancellationToken ct)
     {
-        throw new NotImplementedException();
+        var entity = todoListInfo.ConvertToEntityModel();
+        await _dbContext.TodoLists.AddAsync(entity, ct);
+        await _dbContext.SaveChangesAsync(ct);
+
+        return entity.ConvertToCoreListModel();
     }
 }
