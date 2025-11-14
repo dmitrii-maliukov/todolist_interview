@@ -1,11 +1,11 @@
-import React, { useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getTodoLists } from "../api/todoLists";
+import TodoListItem from "./TodoListItem"
 import "./TodoLists.css";
 
 const PAGE_SIZE = 10;
 
-const TodoLists = () => {
+const TodoLists = ({ onListDeleted }) => {
     const {
         data,
         isLoading,
@@ -32,23 +32,7 @@ const TodoLists = () => {
         <div className="todo-container">
             {data.pages.map((page) =>
                 page.items.map((list) => (
-                    <div key={list.id} className="todo-list">
-                        <p className="list-title">{list.title}</p>
-                        {list.Description && <p className="list-description">{list.description}</p>}
-                        <ul className="todo-items">
-                            {list.todoItems.map((item) => (
-                                <li key={item.id} className="todo-item-in-list">
-                                    <strong
-                                        className="item-title"
-                                        style={{ textDecoration: item.isCompleted ? "line-through" : "none" }}
-                                    >
-                                        {item.title}
-                                    </strong>
-                                    {item.description && <div className="item-description">{item.description}</div>}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    <TodoListItem key={list.id} list={list} onDeleted={onListDeleted} />
                 ))
             )}
 

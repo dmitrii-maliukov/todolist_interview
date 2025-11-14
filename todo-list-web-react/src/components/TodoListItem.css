@@ -1,0 +1,94 @@
+.todo-list-wrapper {
+    position: relative;
+    width: 100%;
+    padding-right: 44px;
+    margin-bottom: 20px;
+}
+
+.todo-list {
+    width: 100%;
+    padding: 15px;
+    padding-right: 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.list-title {
+    margin-top: 5px;
+    margin-bottom: 0px;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 35ch;
+}
+
+.list-description {
+    margin-top: 5px;
+    padding-left: 5px;
+}
+
+.todo-items {
+    list-style-type: none;
+    padding-left: 10px;
+}
+
+.todo-item-in-list {
+    padding: 5px;
+}
+
+.item-title {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 40ch;
+}
+
+.item-description {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 55ch;
+    font-size: 1em;
+}
+
+.remove-list-btn {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 33px;
+    width: 33px;
+
+    color: #fff;
+    background: #1976d2;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    background: #d32f2f;
+    border-radius: 6px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.todo-list-wrapper:hover .remove-list-btn {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.remove-list-btn:hover {
+    filter: brightness(0.92);
+}

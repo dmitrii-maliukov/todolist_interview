@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import TodoLists from "./components/TodoLists";
 import AddTodoList from "./components/AddTodoList";
 import "./App.css";
@@ -13,8 +13,12 @@ const App = () => {
 
     const handleSuccess = () => {
         setShowForm(false);
-        queryClient.invalidateQueries({ queryKey: ["todoLists"] });
+        handleInvalidation();
     };
+
+    const handleInvalidation = () => {
+        queryClient.invalidateQueries({ queryKey: ["todoLists"] });
+    }
 
     return (
         <QueryClientProvider client={queryClient}>
@@ -32,7 +36,7 @@ const App = () => {
                 </div>
 
                 <div className="todo-lists-wrapper">
-                    <TodoLists />
+                    <TodoLists onListDeleted={handleInvalidation} />
                 </div>
             </div>
         </QueryClientProvider>

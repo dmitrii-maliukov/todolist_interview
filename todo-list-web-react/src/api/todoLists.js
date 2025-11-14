@@ -3,7 +3,6 @@ import axios from 'axios';
 export const getTodoLists = async (pageSize, pageNumber) => {
     const response = await axios
         .get(`/api/todo-lists?pageSize=${pageSize}&pageNumber=${pageNumber}`);
-    console.log(response.data);
     return response.data;
 };
 
@@ -26,3 +25,7 @@ export const addTodoList = (newItem) => {
 
     }
 };
+
+export const deleteTodoList = (id) => {
+    return axios.delete(`/api/todo-lists?id=${id}`);
+}
