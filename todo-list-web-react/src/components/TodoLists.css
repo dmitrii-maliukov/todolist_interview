@@ -60,3 +60,18 @@
     text-align: center;
     padding: 20px;
 }
+
+.load-more-container {
+    display: flex;
+    justify-content: center;
+}
+
+.load-more-btn {
+    margin: 10px;
+    background-color: transparent;
+    padding: 10px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid #d0d7de;
+    color: #333;
+}

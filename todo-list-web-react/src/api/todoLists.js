@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-export const getTodoLists = async () => {
-    const response = await axios.get('/api/todo-lists');
+export const getTodoLists = async (pageSize, pageNumber) => {
+    const response = await axios
+        .get(`/api/todo-lists?pageSize=${pageSize}&pageNumber=${pageNumber}`);
+    console.log(response.data);
     return response.data;
 };
 

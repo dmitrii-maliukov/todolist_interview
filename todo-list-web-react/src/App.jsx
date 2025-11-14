@@ -35,7 +35,7 @@ const App = () => {
             </div>
 
             <div className="todo-lists-wrapper">
-                <TodoLists key={refreshKey} />
+                <TodoLists refreshKey={refreshKey} />
             </div>
         </div>
     );
