@@ -40,4 +40,14 @@ public class TodoListsController : ControllerBase
             .CreateTodoListAsync(newTodoList.ToCoreTodoListModel(), ct);
         return Created("api/todo-lists", added.ToApiTodoListModel());
     }
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteAsync(
+        Guid idToDelete,
+        CancellationToken ct)
+    {
+        await _todoListService.DeleteAsync(idToDelete, ct);
+        return Ok();
+    }
+
 }

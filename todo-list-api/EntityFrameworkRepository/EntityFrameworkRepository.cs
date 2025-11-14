@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using TodoList.Core.Abstractions;
 using TodoList.Core.Exceptions;
 using TodoList.Core.Models;
@@ -24,6 +23,7 @@ public class EntityFrameworkRepository : IRepository
         var totalCount = await _dbContext.TodoLists.CountAsync();
         var fetchedResults = await _dbContext
             .TodoLists
+            .AsNoTracking()
             .OrderBy(p => p.Id)
             .Skip((filter.CurrentPage - 1) * filter.PageSize)
             .Take(filter.PageSize)
@@ -32,18 +32,6 @@ public class EntityFrameworkRepository : IRepository
             .ToListAsync(ct);
 
         return new(totalCount, filter.CurrentPage, fetchedResults.AsReadOnly());
-    }
-
-    /// <inheritdoc />
-    public async Task<TodoListModel> GetTodoListAsync(Guid id, CancellationToken ct)
-    {
-        var fetched = await _dbContext.TodoLists
-            .SingleOrDefaultAsync(x => x.Id == id, ct);
-
-        if (fetched == null)
-            throw new DataNotFoundException($"Todo List {id} cannot be found");
-
-        return fetched.ConvertToCoreListModel();
     }
 
     /// <inheritdoc />
@@ -56,5 +44,18 @@ public class EntityFrameworkRepository : IRepository
         await _dbContext.SaveChangesAsync(ct);
 
         return entity.ConvertToCoreListModel();
+    }
+
+    /// <inheritdoc />
+    public async Task DeleteTodoListAsync(Guid id, CancellationToken ct)
+    {
+        var recordToDelete = await _dbContext.TodoLists
+            .SingleOrDefaultAsync(x => x.Id == id, ct);
+
+        if (recordToDelete == null)
+            throw new DataNotFoundException($"Todo List {id} cannot be found");
+
+        _dbContext.TodoLists.Remove(recordToDelete);
+        await _dbContext.SaveChangesAsync(ct);
     }
 }

@@ -23,9 +23,8 @@ public interface IRepository
         CancellationToken ct);
 
     /// <summary>
-    /// Fetches one todo list record by given unique id
+    /// Removes one todo list record by given unique id
     /// </summary>
     /// <param name="id">Unique id of todo list record</param>
-    /// <returns>Found record</returns>
-    Task<TodoListModel> GetTodoListAsync(Guid id, CancellationToken ct);
+    Task DeleteTodoListAsync(Guid id, CancellationToken ct);
 }

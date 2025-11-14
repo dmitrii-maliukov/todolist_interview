@@ -44,22 +44,6 @@ internal class CachedEfRepository : IRepository
     }
 
     /// <inheritdoc />
-    public async Task<TodoListModel> GetTodoListAsync(Guid id, CancellationToken ct)
-    {
-        if (_memoryCache.TryGetValue(id, out TodoListModel? todoList))
-        {
-            _logger.LogDebug("Got single record from cache");
-            return todoList!;
-        }
-
-        _logger.LogDebug("Fetching single record data from db");
-        var result = await _repository.GetTodoListAsync(id, ct);
-        _memoryCache.Set(id.ToString(), result, _cacheInvalidationTime);
-
-        return result;
-    }
-
-    /// <inheritdoc />
     public async Task<TodoListModel> InsertTodoListAsync(
         CreateTodoListInfo todoListInfo,
         CancellationToken ct)
@@ -70,6 +54,13 @@ internal class CachedEfRepository : IRepository
         InvalidateCache();
 
         return result;
+    }
+
+    /// <inheritdoc />
+    public async Task DeleteTodoListAsync(Guid id, CancellationToken ct)
+    {
+        await _repository.DeleteTodoListAsync(id, ct);
+        InvalidateCache();
     }
 
     private string GetVersionedKey(string key) => $"v{_cacheVersion}:{key}";
