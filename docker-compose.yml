@@ -7,7 +7,7 @@ services:
       - "5051:8080"
     environment:
       - "ASPNETCORE_ENVIRONMENT=Development"
-      - "CONNECTIONSTRINGS__DEFAULT=Data Source=/sqlite_data/todolist.db"
+      - "CONNECTIONSTRINGS__DEFAULT=Data Source=/sqlite_data/docker_todolist.db"
     volumes:
       - todo_list_data:/sqlite_data
     healthcheck:
@@ -24,7 +24,8 @@ services:
       context: todo-list-api/.
       dockerfile: Dockerfile.migrate
     environment:
-      ASPNETCORE_ENVIRONMENT: "Development"
+      - "ASPNETCORE_ENVIRONMENT=Development"
+      - "CONNECTIONSTRINGS__DEFAULT=Data Source=/sqlite_data/docker_todolist.db"
     volumes:
       - todo_list_data:/sqlite_data
 
