@@ -1,1 +1,3 @@
 todo-list-api/Api/sqlite_data/todolist.db
+todo-list-api/Api/sqlite_data/todolist.db-shm
+todo-list-api/Api/sqlite_data/todolist.db-wal
