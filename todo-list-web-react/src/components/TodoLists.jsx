@@ -37,7 +37,7 @@ const TodoLists = () => {
                                 key={item.id}
                                 className="todo-item-in-list"
                             >
-                                <strong
+                                <strong className="item-title"
                                     style={{ textDecoration: item.isCompleted ? "line-through" : "none" }}
                                 >
                                     {item.title}

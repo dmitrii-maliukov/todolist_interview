@@ -33,7 +33,18 @@
     padding: 5px;
 }
 
+.item-title {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 40ch;
+}
+
 .item-description {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 55ch;
     font-size: 1em;
 }
 

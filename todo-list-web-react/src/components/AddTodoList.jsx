@@ -50,7 +50,12 @@ const AddTodoList = ({ onSuccess, onClose }) => {
             setItems([{ title: "", description: "", isCompleted: false }]);
             if (onSuccess) onSuccess();
         } catch (err) {
-            setError(err.message || "Failed to add ToDo list");
+            if (err.response?.data?.errors) {
+                const messages = Object.values(err.response.data.errors)
+                    .flat()
+                    .join("; ");
+                setError(messages);
+            } else { setError(err.message || "Failed to add ToDo list"); }
         } finally {
             setSubmitting(false);
         }
@@ -69,7 +74,8 @@ const AddTodoList = ({ onSuccess, onClose }) => {
                         onChange={(e) => setTitle(e.target.value)}
                         required
                         type="text"
-                        placeholder="My list name"
+                        placeholder="New todo list name"
+                        maxLength={50}
                     />
                 </div>
 
@@ -82,6 +88,7 @@ const AddTodoList = ({ onSuccess, onClose }) => {
                             onChange={(e) => setDescription(e.target.value)}
                             rows={3}
                             placeholder="Optional description of the list"
+                            maxLength={100}
                         />
                     </div>
                 </div>
@@ -98,6 +105,7 @@ const AddTodoList = ({ onSuccess, onClose }) => {
                             required
                             type="text"
                             placeholder="Item title"
+                            maxLength={50}
                         />
                     </div>
 
@@ -110,6 +118,7 @@ const AddTodoList = ({ onSuccess, onClose }) => {
                                 onChange={(e) => handleItemChange(idx, "description", e.target.value)}
                                 rows={3}
                                 placeholder="Optional note"
+                                maxLength={100}
                             />
                             <div className="right-action stacked-buttons">
                                 <button
