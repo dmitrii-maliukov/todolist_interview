@@ -13,7 +13,7 @@ const TodoListItem = ({ list, onDeleted }) => {
             <div key={list.id} className="todo-list">
 
                 <p className="list-title">{list.title}</p>
-                {list.Description && <p className="list-description">{list.description}</p>}
+                {list.description && <p className="list-description">{list.description}</p>}
 
                 <ul className="todo-items">
                     {list.todoItems.map((item) => (
